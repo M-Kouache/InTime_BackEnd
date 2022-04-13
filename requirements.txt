@@ -8,8 +8,10 @@
 -i https://pypi.org/simple
 asgiref==3.5.0; python_version >= '3.7'
 backports.zoneinfo==0.2.1; python_version < '3.9'
-django==4.0.3
+django-environ==0.8.1
+django==4.0.4
 gunicorn==20.1.0
-setuptools==62.0.0; python_version >= '3.7'
+psycopg2==2.9.3
+setuptools==62.1.0; python_version >= '3.7'
 sqlparse==0.4.2; python_version >= '3.5'
 whitenoise==6.0.0

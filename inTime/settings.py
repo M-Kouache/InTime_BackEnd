@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+#Initialize environment variables.
+env = environ.Env()
+environ.Env.read_env()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +31,7 @@ SECRET_KEY = 'django-insecure-s617*e_8a+%8ojdrxb7o6a70x7c*47g53pol*$39cbtklb1b#9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['in-time-v1.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['in-time-v1.herokuapp.com','127.0.0.1','localhost']
 
 
 # Application definition
@@ -79,9 +86,17 @@ WSGI_APPLICATION = 'inTime.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
+    #}
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':env('db_name'),
+        'USER':env('db_user'),
+        'PASSWORD':env('db_password'),
+        'HOST':env('db_host'),
+        'PORT':env('db_port'),
     }
 }
 
