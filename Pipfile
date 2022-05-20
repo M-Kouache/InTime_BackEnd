@@ -9,6 +9,9 @@ gunicorn = "*"
 whitenoise = "*"
 psycopg2 = "*"
 django-environ = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+djoser = "*"
 
 [dev-packages]
 
