@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-s617*e_8a+%8ojdrxb7o6a70x7c*47g53pol*$39cbtklb1b#9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True 
 
-ALLOWED_HOSTS = ['in-time-v1.herokuapp.com','127.0.0.1','localhost','*']
+ALLOWED_HOSTS = ['in-time-v1.herokuapp.com','127.0.0.1','localhost','9a3b-102-101-158-83.eu.ngrok.io','*']
 
 
 # Application definition
@@ -107,7 +107,7 @@ TEMPLATES = [
 
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

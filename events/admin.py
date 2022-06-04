@@ -17,7 +17,7 @@ class Service(admin.ModelAdmin):
 
 @admin.register(Events)
 class Events(admin.ModelAdmin):
-    pass 
+    list_display = ['id','title','departement','public_events','date_start','date_end','actor','location']
 
 @admin.register(Handler)
 class Handler(admin.ModelAdmin):

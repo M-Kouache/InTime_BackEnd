@@ -24,7 +24,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ['id','service','user']
+        fields = "__all__"
 
 class HandlerSerializer(serializers.ModelSerializer):
     class Meta:
