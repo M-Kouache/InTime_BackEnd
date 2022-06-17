@@ -1,13 +1,14 @@
+from math import perm
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse,JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticated , IsAdminUser
+from rest_framework.permissions import IsAuthenticated , IsAdminUser, AllowAny
 from djoser.views import UserViewSet as DjoserUserViewSet
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from events.models import Department,Service,UserProfile as BaseUserProfile , Events, Handler
 from events.serializers import UserProfileSerializer,DepartmentSerializer,ServiceSerializer,UserAdminSerializer,EventsSerializer, HandlerSerializer
 
@@ -32,6 +33,10 @@ class UserViewSet(DjoserUserViewSet):
 
 
 
+@api_view(['GET'])
+def rootView(request):
+    html= "<html><body style='height:80vh;display:flex;alignItems:center;justifyContent:center' ><h1 style='color:red;>Request not allowed</h1></body></html>"
+    return HttpResponse(html)
 
 
 #route for getting or updating user profile
@@ -51,12 +56,21 @@ def UserProfile(request):
      
      
      
-@api_view(['POST'])
+@api_view(['POST','PUT'])
 def SetUserProfile(request):
-    serializer = UserProfileSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data)
+    (user, created) = BaseUserProfile.objects.update_or_create(user=request.user)
+
+    '''if request.method == 'POST':
+        serializer = UserProfileSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)'''
+    if request.method == 'PUT':
+        serializer = UserProfileSerializer(user, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+        
 
 
 @api_view(['POST','GET'])
@@ -207,9 +221,7 @@ def removeHandler(request):
      
 @api_view(['GET'])
 def get_services(request):
-
     services = Service.objects.all()
     serializer = ServiceSerializer(services,many=True)
-
     return Response(serializer.data)
 

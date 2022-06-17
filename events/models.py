@@ -23,7 +23,7 @@ class Service(models.Model):
         ordering = ['id']
 
 class UserProfile(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service,default=1,on_delete=models.CASCADE)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
