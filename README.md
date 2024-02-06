@@ -1,2 +1,2 @@
 # InTime
-An Event Agenda app
+An Event Agenda app with python/Django
